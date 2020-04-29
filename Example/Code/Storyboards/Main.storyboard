@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="16096" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Z0W-Yf-DK2">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="16086"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="Ufd-PW-CIf">
+            <objects>
+                <navigationController id="Z0W-Yf-DK2" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="BNf-Eh-2JN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Uuq-EU-az5" kind="relationship" relationship="rootViewController" id="OWv-5e-bEz"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="v7M-gB-tfx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-228" y="167"/>
+        </scene>
+        <!--Examples-->
+        <scene sceneID="DIQ-qx-MjU">
+            <objects>
+                <viewController id="Uuq-EU-az5" customClass="ViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="1GS-yq-Nbg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="cjm-Wu-Iju">
+                                <rect key="frame" x="184" y="400" width="46" height="96"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="N7L-Kx-R68">
+                                        <rect key="frame" x="0.0" y="0.0" width="46" height="0.0"/>
+                                        <state key="normal" title="Login"/>
+                                        <connections>
+                                            <action selector="loginPressed:" destination="Uuq-EU-az5" eventType="touchUpInside" id="zq7-zd-LLh"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="Onk-ki-nuh">
+                                        <rect key="frame" x="0.0" y="32" width="46" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Password"/>
+                                        <connections>
+                                            <action selector="passwordPressed:" destination="Uuq-EU-az5" eventType="touchUpInside" id="1Uc-VV-eW7"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="ps5-fN-SPF">
+                                        <rect key="frame" x="0.0" y="64" width="46" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Register"/>
+                                        <connections>
+                                            <action selector="registerPressed:" destination="Uuq-EU-az5" eventType="touchUpInside" id="eiR-ev-5y9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="6tE-oi-gpT">
+                                        <rect key="frame" x="0.0" y="96" width="46" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="No Combine"/>
+                                        <connections>
+                                            <action selector="noCombinePressed:" destination="Uuq-EU-az5" eventType="touchUpInside" id="e4I-DG-4ky"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="cjm-Wu-Iju" firstAttribute="centerX" secondItem="1GS-yq-Nbg" secondAttribute="centerX" id="7K3-2P-GaN"/>
+                            <constraint firstItem="cjm-Wu-Iju" firstAttribute="centerY" secondItem="1GS-yq-Nbg" secondAttribute="centerY" id="Bhg-3v-Jtg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="u3B-Pc-Ifq"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Examples" id="AOg-PV-Cf9"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TTs-TA-CNS" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="423" y="167"/>
+        </scene>
+    </scenes>
+</document>
