@@ -10,6 +10,7 @@ import Foundation
 
 public extension ValidationRule where Value == String {
     static var isEmail: Self {
+        // taken from: http://emailregex.com/
         return .regex("[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}")
     }
 }

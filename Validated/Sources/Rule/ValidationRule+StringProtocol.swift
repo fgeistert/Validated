@@ -41,7 +41,8 @@ public extension ValidationRule where Value: StringProtocol {
     
     static func maxContainsLetters(_ characterCount: Int) -> Self {
         return ValidationRule {
-            return $0.filter { $0.isLetter }.count <= characterCount
+            let count = $0.filter { $0.isLetter }.count
+            return count <= characterCount || count == 0
         }
     }
     
@@ -65,7 +66,8 @@ public extension ValidationRule where Value: StringProtocol {
     
     static func maxContainsNumbers(_ characterCount: Int) -> Self {
         return ValidationRule {
-            return $0.filter { $0.isNumber }.count <= characterCount
+            let count = $0.filter { $0.isNumber }.count
+            return count <= characterCount || count == 0
         }
     }
     

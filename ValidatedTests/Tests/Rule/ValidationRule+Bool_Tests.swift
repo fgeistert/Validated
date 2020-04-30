@@ -9,15 +9,6 @@
 import XCTest
 @testable import Validated
 
-//        print(ValidationState.validate("abc", with: .regex("[0-9]+$")))
-//        print(ValidationState.validate("123", with: .regex("[0-9]+$")))
-//        print(ValidationState.validate("123abc", with: .regex("[0-9]+$")))
-//
-//        print(ValidationState.validate("@@@", with: .isEmail))
-//        print(ValidationState.validate("#@yahoo.de", with: .isEmail))
-//        print(ValidationState.validate("fgeistert@gmail.com", with: .isEmail))
-//        print(ValidationState.validate("a@b", with: .isEmail))
-
 final class ValidationRule_Bool_Tests: XCTestCase {
     func testTrueIsEqualToTrue() {
         let validation = ValidationResult.validate(true, with: .equalTo(true))
