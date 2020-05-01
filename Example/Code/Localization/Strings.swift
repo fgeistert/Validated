@@ -18,7 +18,7 @@ struct Strings {
         static let password = "Use at least 8 characters."
         static let repeatPassword = "Must match Password."
         
-        static let empty = "Password cannot be empty."
+        static let empty = "Field cannot be empty."
         static let noLetter = "Must contain at least one letter."
         static let noNumber = "Must contain at least one number."
         static let minLengthOf8 = "Must be at least 8 characters long."

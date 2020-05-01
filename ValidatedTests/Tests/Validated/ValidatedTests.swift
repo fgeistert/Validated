@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Combine
 @testable import Validated
 
 final class Validated_Tests: XCTestCase {
@@ -76,97 +75,54 @@ final class Validated_Tests: XCTestCase {
         XCTAssertTrue(_test4.result.isValid)
     }
     
-    @Validated(rule: .minLength(2), formatter: .trimmed)
+    @Validated(rules: [.minLength(2), .maxLength(5)])
     var test5: String?
     
-    var cancellables = Set<AnyCancellable>()
-    
-    func testValidationResultPublisher() {
-        XCTAssertFalse(_test5.result.isValid)
-        
-        let expectation1 = XCTestExpectation(description: "initial value")
-        let expectation2 = XCTestExpectation(description: "other value")
-        
-        $test5.sink { (result) in
-            if result.isValid {
-                expectation2.fulfill()
-            } else {
-                expectation1.fulfill()
-            }
-        }.store(in: &cancellables)
-        
-        test5 = " ab  "
-        
-        wait(for: [expectation1, expectation2], timeout: 1, enforceOrder: true)
-    }
-    
-    @Validated(rule: .minLength(2), formatter: .trimmed)
-    var test6: String?
-    
-    func testValuePublisher() {
-        XCTAssertFalse(_test5.result.isValid)
-        
-        let expectation1 = XCTestExpectation()
-        
-        _test5.valuePublisher().sink { (value) in
-            if value == "ab" {
-                expectation1.fulfill()
-            }
-        }.store(in: &cancellables)
-        
-        test5 = " ab  "
-        
-        wait(for: [expectation1], timeout: 1)
-    }
-    
-    @Validated(rules: [.minLength(2), .maxLength(5)])
-    var test7: String?
-    
     func testMultipleRules() {
-        XCTAssertFalse(_test7.result.isValid)
+        XCTAssertFalse(_test5.result.isValid)
         
-        test7 = "a"
-        XCTAssertFalse(_test7.result.isValid)
+        test5 = "a"
+        XCTAssertFalse(_test5.result.isValid)
         
-        test7 = "ab"
-        XCTAssertTrue(_test7.result.isValid)
+        test5 = "ab"
+        XCTAssertTrue(_test5.result.isValid)
         
-        test7 = "abc"
-        XCTAssertTrue(_test7.result.isValid)
+        test5 = "abc"
+        XCTAssertTrue(_test5.result.isValid)
         
-        test7 = "abcd"
-        XCTAssertTrue(_test7.result.isValid)
+        test5 = "abcd"
+        XCTAssertTrue(_test5.result.isValid)
         
-        test7 = "abcde"
-        XCTAssertTrue(_test7.result.isValid)
+        test5 = "abcde"
+        XCTAssertTrue(_test5.result.isValid)
         
-        test7 = "abcdef"
-        XCTAssertFalse(_test7.result.isValid)
+        test5 = "abcdef"
+        XCTAssertFalse(_test5.result.isValid)
     }
     
     @Validated(rule: .notEmpty, formatters: [.trimmed, .uppercased])
-    var test8: String?
+    var test6: String?
     
     func testMultipleFormatters() {
-        XCTAssertFalse(_test8.result.isValid)
+        XCTAssertFalse(_test6.result.isValid)
         
-        test8 = " "
-        XCTAssertFalse(_test8.result.isValid)
+        test6 = " "
+        XCTAssertFalse(_test6.result.isValid)
         
-        test8 = " a"
-        XCTAssertTrue(_test8.result.isValid)
-        XCTAssertEqual(test8, "A")
+        test6 = " a"
+        XCTAssertTrue(_test6.result.isValid)
+        XCTAssertEqual(test6, "A")
         
-        test8 = " ab"
-        XCTAssertTrue(_test8.result.isValid)
-        XCTAssertEqual(test8, "AB")
+        test6 = " ab"
+        XCTAssertTrue(_test6.result.isValid)
+        XCTAssertEqual(test6, "AB")
         
-        test8 = "     aXz       "
-        XCTAssertTrue(_test8.result.isValid)
-        XCTAssertEqual(test8, "AXZ")
+        test6 = "     aXz       "
+        XCTAssertTrue(_test6.result.isValid)
+        XCTAssertEqual(test6, "AXZ")
         
-        test8 = nil
-        XCTAssertFalse(_test8.result.isValid)
-        XCTAssertEqual(test8, nil)
+        test6 = nil
+        XCTAssertFalse(_test6.result.isValid)
+        XCTAssertEqual(test6, nil)
     }
 }
