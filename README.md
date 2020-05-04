@@ -6,8 +6,7 @@
 
 A rule-based validation framework.
 
-<img src="https://user-images.githubusercontent.com/3149925/80971278-cb581f80-8e1c-11ea-93d0-cc88b122ca6b.gif" height="400">
-<img src="https://user-images.githubusercontent.com/3149925/80971519-330e6a80-8e1d-11ea-9658-16ebbab3b2ca.gif" height="400">
+<img src="https://user-images.githubusercontent.com/3149925/80971278-cb581f80-8e1c-11ea-93d0-cc88b122ca6b.gif" height="400"/> <img src="https://user-images.githubusercontent.com/3149925/80971519-330e6a80-8e1d-11ea-9658-16ebbab3b2ca.gif" height="400"/>
 
 ## Key Features
 - rule-based
@@ -20,7 +19,7 @@ A rule-based validation framework.
 
 ## About this project
 
-The basic idea is to separate the validation logic from the rest of your project. Validated self-encapsulates all validation logic into reusable rules. All rules are type-safe and tested. Additionally it features optional validation and input formatting. 
+The basic idea is to separate the validation logic from the rest of your project. Validated self-encapsulates all validation logic into reusable rules. All rules are type-safe and tested. Additionally it features input formatting. Fields can also be marked as optional. 
 
 ## Usage
 The project includes an Example project.
@@ -49,7 +48,7 @@ XCTAssertEqual(newValue, "ABC") // true
 ### Core Components
 
 #### Result
-The `ValidationResult` is an `Enum` that has to states:
+The `ValidationResult` is an `Enum` that has two states:
 
 ```swift
 case valid(_ value: Value?)
@@ -130,20 +129,23 @@ Defining it, is very straight-forward:
 var email: String?
 ```
 
+> Note: Formatting will be done, before the rules are checked. Therefore, it will validate the formatted values. 
+
 ##### Initialization
 
 `@Validated` can be initialized in many ways:
 
 - one `ValidationRule` or an Array of `ValidationRule`s
 - zero, one or an Array of `ValidationFormatter`s
-- a `ValidationStrategy`. By default, it uses the `.required` strategy. 
-
+- a `ValidationStrategy`. By default, if none provided, it uses the `.required` strategy. 
 
 ##### Combine
 `@Validated` also contains some Combine extensions. They will only take affect, if `Combine` can be imported. Basically, there are two publishers:
 
 - `validationPublisher` -> publishes a `ValidationResult` for every change to the value.
 - `valuePublisher` -> publishes a formatted value, whenever a `.valid` `ValidationResult` occurs. 
+
+> Note: Even though Combine is supported, you can still use it without it. Validated is usable from iOS9+.
 
 ##### Projected Value
 The projected value returns the `validationPublisher()`. It publishes a `ValidationResult` every time you make a change to the properties' value. 
@@ -152,17 +154,17 @@ The projected value returns the `validationPublisher()`. It publishes a `Validat
 
 ```swift
 $email
-	.sink { [weak self] (result) in
-		switch result {
-		case .valid(let value):
-			self?.passwordValidLabel.text = "✅"
-			print("new password: valid -> \(value ?? "nil")")
-		case .notValid:
-			self?.passwordValidLabel.text = "❌"
-			print("new password: notValid")
-		}
-	}
-	.store(in: &cancellables)
+    .sink { [weak self] (result) in
+        switch result {
+        case .valid(let value):
+            self?.passwordValidLabel.text = "✅"
+            print("new password: valid -> \(value ?? "nil")")
+        case .notValid:
+            self?.passwordValidLabel.text = "❌"
+            print("new password: notValid")
+        }
+    }
+    .store(in: &cancellables)
 ```
 
 > Note: Make sure you connect your TextField to your `@Validated` object. This can be done by binding your TextField values to the property with Combine or using the NotificationCenter. Examples of how this can be done are included in the Example project.
@@ -179,11 +181,11 @@ Here is an example of how you could make your own rule called `isAwesome`.
 
 ```swift
 extension ValidationRule where Value == String {
-	static var isAwesome: Self {
-		return ValidationRule {
-			return $0 == "Awesome"
-		}
-	}
+    static var isAwesome: Self {
+        return ValidationRule {
+            return $0 == "Awesome"
+        }
+    }
 }
 ```
 
@@ -191,9 +193,9 @@ This could also be written like this:
 
 ```swift
 extension ValidationRule {
-	static var isAwesome<String>: Self {
-		ValidationRule { $0 == "Awesome" }
-	}
+    static var isAwesome<String>: Self {
+        ValidationRule { $0 == "Awesome" }
+    }
 }
 ```
 
@@ -205,7 +207,7 @@ Here is an example of how you could make your own formatter called `replacedAWit
 
 ```swift
 extension ValidationFormatter where Value == String {
-	static var replacedAWithB: Self {
+    static var replacedAWithB: Self {
         return ValidationFormatter {
             return $0.replacingOccurrences(of: "A", with: "B")
         }
@@ -217,7 +219,7 @@ This could also be written like this:
 
 ```swift
 extension ValidationFormatter {
-	static var replacedAWithB<String>: Self {
+    static var replacedAWithB<String>: Self {
         ValidationFormatter { $0.replacingOccurrences(of: "A", with: "B") }
     }
 }
@@ -260,7 +262,7 @@ Then run `carthage update`.
 Just drag and drop the `.swift` files from the `Validated` folder into your project.
 
 ## Version Compatibility
-Validated is built with Swift 5.2
+Validated is built with Swift 5.2. It supports iOS9+.
 
 ## Contributing
 - Open an issue
