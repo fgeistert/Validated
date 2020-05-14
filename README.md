@@ -247,14 +247,14 @@ Every `ValidationFormatter` should be named in the simple past tense (e.g. `trim
 ### Swift Package Manager (Recommended)
 Add the following dependency to your `Package.swift` file:
 ```
-.package(url: "https://github.com/fgeistert/Validated.git", from: "1.0.1")
+.package(url: "https://github.com/fgeistert/Validated.git", from: "1.0.2")
 ```
 
 ### Cartage
 Add the following line to your [Cartfile](https://github.com/Carthage/Carthage/blob/master/Documentation/Artifacts.md#cartfile).
 
 ```
-github "fgeistert/Validated" ~> 1.0.1
+github "fgeistert/Validated" ~> 1.0.2
 ```
 
 Then run `carthage update`.
