@@ -291,4 +291,40 @@ final class ValidationFormatter_String_Tests: XCTestCase {
         let formattedInput5 = formatter5.formatter(input5)
         XCTAssertEqual(formattedInput5, "Abc Bc Cd")
     }
+    
+    // MARK: - WhitespacesRemoved
+    
+    func testWhitespacesRemovedNoChange() {
+        let formatter1 = ValidationFormatter.whitespacesRemoved
+        let input1 = "ABC"
+        let formattedInput1 = formatter1.formatter(input1)
+        XCTAssertEqual(formattedInput1, input1)
+        
+        let formatter2 = ValidationFormatter.whitespacesRemoved
+        let input2 = "1234"
+        let formattedInput2 = formatter2.formatter(input2)
+        XCTAssertEqual(formattedInput2, input2)
+    }
+    
+    func testWhitespacesRemovedChange() {
+        let formatter1 = ValidationFormatter.whitespacesRemoved
+        let input1 = " A B C "
+        let formattedInput1 = formatter1.formatter(input1)
+        XCTAssertEqual(formattedInput1, "ABC")
+        
+        let formatter2 = ValidationFormatter.whitespacesRemoved
+        let input2 = "       1  2  3  4       "
+        let formattedInput2 = formatter2.formatter(input2)
+        XCTAssertEqual(formattedInput2, "1234")
+        
+        let formatter3 = ValidationFormatter.whitespacesRemoved
+        let input3 = "A B C D"
+        let formattedInput3 = formatter3.formatter(input3)
+        XCTAssertEqual(formattedInput3, "ABCD")
+        
+        let formatter4 = ValidationFormatter.whitespacesRemoved
+        let input4 = "      👋 👋  "
+        let formattedInput4 = formatter4.formatter(input4)
+        XCTAssertEqual(formattedInput4, "👋👋")
+    }
 }

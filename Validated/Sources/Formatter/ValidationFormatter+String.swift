@@ -9,6 +9,7 @@
 import Foundation
 
 public extension ValidationFormatter where Value == String {
+    
     static var trimmed: Self {
         return .trimmed(with: .whitespaces)
     }
@@ -40,6 +41,12 @@ public extension ValidationFormatter where Value == String {
     static var capitalized: Self {
         return ValidationFormatter {
             return $0.capitalized
+        }
+    }
+    
+    static var whitespacesRemoved: Self {
+        return ValidationFormatter {
+            return $0.replacingOccurrences(of: " ", with: "")
         }
     }
 }
