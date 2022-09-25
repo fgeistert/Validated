@@ -8,17 +8,20 @@ let package = Package(
     products: [
         .library(
             name: "Validated",
-            targets: ["Validated"]),
+            targets: ["Validated"]
+        ),
     ],
     dependencies: [],
     targets: [
         .target(
             name: "Validated",
             dependencies: [],
-            path: "Validated/Sources"),
+            path: "Validated/Sources"
+        ),
         .testTarget(
             name: "ValidatedTests",
             dependencies: ["Validated"],
-            path: "ValidatedTests/Tests"),
+            path: "ValidatedTests/Tests"
+        ),
     ]
 )

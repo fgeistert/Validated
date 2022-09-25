@@ -17,6 +17,8 @@ public class Validated<Value: Validatable> {
     
     // MARK: - Private
     
+    private var __subject: Any?
+    
     private var strategy: ValidationStrategy = .required
     private var rules: [ValidationRule<Value>]? = nil
     private var formatters: [ValidationFormatter<Value>]? = nil
@@ -30,7 +32,15 @@ public class Validated<Value: Validatable> {
     private func postValueOnFirstAssign() {
         if #available(iOS 13.0, *) {
             #if canImport(Combine)
-            _subject.validatedValue.value = result
+            _subject?.validatedValue.value = result
+            #endif
+        }
+    }
+    
+    private func setupSubjectIfPossible() {
+        if #available(iOS 13.0, *) {
+            #if canImport(Combine)
+            _subject = ValidatedSubject()
             #endif
         }
     }
@@ -40,6 +50,7 @@ public class Validated<Value: Validatable> {
     public init(strategy: ValidationStrategy = .required) {
         value = nil
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -47,6 +58,7 @@ public class Validated<Value: Validatable> {
         value = nil
         self.rules = [rule]
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -54,6 +66,7 @@ public class Validated<Value: Validatable> {
         value = nil
         self.rules = rules
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -62,6 +75,7 @@ public class Validated<Value: Validatable> {
         self.rules = [rule]
         self.formatters = [formatter]
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -70,6 +84,7 @@ public class Validated<Value: Validatable> {
         self.rules = rules
         self.formatters = [formatter]
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -78,6 +93,7 @@ public class Validated<Value: Validatable> {
         self.rules = [rule]
         self.formatters = formatters
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -86,6 +102,7 @@ public class Validated<Value: Validatable> {
         self.rules = rules
         self.formatters = formatters
         self.strategy = strategy
+        setupSubjectIfPossible()
         postValueOnFirstAssign()
     }
     
@@ -147,9 +164,14 @@ public class Validated<Value: Validatable> {
     }
     
     @available(iOS 13.0, *)
-    internal lazy var _subject: ValidatedSubject = {
-        return ValidatedSubject()
-    }()
+    internal var _subject: ValidatedSubject? {
+        get {
+            return __subject as? ValidatedSubject
+        }
+        set {
+            __subject = newValue
+        }
+    }
     
     @available(iOS 13.0, *)
     public var projectedValue: AnyPublisher<ValidationResult<Value>, Never> {
